@@ -20,8 +20,10 @@ class ServiceProvider extends BaseServiceProvider
             ]);
         }
 
-        $this->app->extend(Vite::class, function () {
-            return new StaticAssetVite;
-        });
+        if (config('static-assets.is_enabled')) {
+            $this->app->extend(Vite::class, function () {
+                return new StaticAssetVite;
+            });
+        }
     }
 }
