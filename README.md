@@ -1,1 +1,1 @@
-# Package for Laravel
+# Static Assets for Laravel
