@@ -21,14 +21,14 @@ class StaticAssetVite extends Vite
 
     protected function manifest($buildDirectory): array
     {
+        $path = $this->manifestPath($buildDirectory);
+
         // save to the disk and then continue as normal
-        if (config('static-assets.vite.manifest_save_method') === 'disk') {
+        if (! is_file($path) && config('static-assets.vite.manifest_save_method') === 'disk') {
             (new DownloadViteManifest)();
 
             return parent::manifest($buildDirectory);
         }
-
-        $path = $this->manifestPath($buildDirectory);
 
         if (! isset(static::$manifests[$path])) {
             $remotePath = sprintf(
