@@ -2,8 +2,8 @@
 
 namespace StaticAssets;
 
-use Illuminate\Foundation\Vite;
 use Illuminate\Support\Str;
+use Illuminate\Foundation\Vite;
 
 class StaticAssetVite extends Vite
 {
@@ -13,7 +13,7 @@ class StaticAssetVite extends Vite
             ->append('/')
             ->append($path)
             ->replace(
-                config('static-assets.vite.manifest_directory'),
+                config('static-assets.manifest.custom_directory') ?: 'build',
                 config('static-assets.release')
             )
             ->toString();
@@ -24,8 +24,8 @@ class StaticAssetVite extends Vite
         $path = $this->manifestPath($buildDirectory);
 
         // save to the disk and then continue as normal
-        if (! is_file($path) && config('static-assets.vite.manifest_save_method') === 'disk') {
-            (new DownloadViteManifest)();
+        if (! is_file($path) && config('static-assets.manifest.save_method') === 'disk') {
+            (new DownloadManifest)('vite');
 
             return parent::manifest($buildDirectory);
         }
