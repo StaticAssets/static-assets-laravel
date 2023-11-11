@@ -34,7 +34,7 @@ class StaticAssetMix
             if (config('static-assets.manifest.save_method') === 'cache') {
                 $remotePath = sprintf(
                     '%s/%s/mix-manifest.json',
-                    config('static-assets.cdn'),
+                    'https://cdn.staticassets.app',
                     config('static-assets.release')
                 );
 
@@ -66,7 +66,7 @@ class StaticAssetMix
             }
         }
 
-        return Str::of(config('static-assets.cdn'))
+        return Str::of('https://cdn.staticassets.app')
             ->append('/')
             ->append(config('static-assets.release'))
             ->append(new HtmlString(app('config')->get('app.mix_url').$manifestDirectory.$manifest[$path]))

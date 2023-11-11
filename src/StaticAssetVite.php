@@ -9,7 +9,7 @@ class StaticAssetVite extends Vite
 {
     protected function assetPath($path, $secure = null): string
     {
-        return Str::of(config('static-assets.cdn'))
+        return Str::of('https://cdn.staticassets.app')
             ->append('/')
             ->append($path)
             ->replace(
@@ -32,8 +32,7 @@ class StaticAssetVite extends Vite
 
         if (! isset(static::$manifests[$path])) {
             $remotePath = sprintf(
-                '%s/%s/manifest.json',
-                config('static-assets.cdn'),
+                'https://staticassets.app/api/manifest/%s',
                 config('static-assets.release')
             );
 

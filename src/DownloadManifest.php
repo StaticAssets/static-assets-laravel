@@ -17,10 +17,8 @@ class DownloadManifest
 
         Http::sink(public_path(config('static-assets.manifest.directory'))."/{$fileName}")
             ->get(sprintf(
-                '%s/%s/%s',
-                config('static-assets.cdn'),
+                'https://staticassets.app/api/manifest/%s',
                 config('static-assets.release'),
-                $fileName,
             ));
     }
 }
