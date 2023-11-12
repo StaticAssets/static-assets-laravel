@@ -8,19 +8,16 @@ class DownloadManifest
 {
     public function __invoke(string $type): void
     {
+        $fileName = $type === 'vite' ? 'manifest.json' : 'mix-manifest.json';
+        $defaultBuildDirectory = $type === 'vite' ? 'build' : '';
+        $buildDirectory = public_path(config('static-assets.manifest.custom_directory') ?: $defaultBuildDirectory);
+
         // ensure there is the build directory
-        if (! is_dir(public_path(config('static-assets.manifest.directory')))) {
-            mkdir(public_path(config('static-assets.manifest.directory')));
+        if (! is_dir($buildDirectory)) {
+            mkdir($buildDirectory);
         }
 
-        $fileName = $type === 'vite' ? 'manifest.json' : 'mix-manifest.json';
-
-        Http::sink(public_path(config('static-assets.manifest.directory'))."/{$fileName}")
-            ->get(sprintf(
-                '%s/%s/%s',
-                config('static-assets.cdn'),
-                config('static-assets.release'),
-                $fileName,
-            ));
+        Http::sink("{$buildDirectory}/{$fileName}")
+            ->get('https://manifests.staticassets.app/'.config('static-assets.release'));
     }
 }

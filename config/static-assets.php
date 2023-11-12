@@ -1,8 +1,6 @@
 <?php
 
 return [
-    'cdn' => 'https://cdn.staticassets.app',
-
     'is_enabled' => env('APP_ENV', 'production') === 'production',
 
     'release' => trim(exec('git --git-dir '.base_path('.git').' rev-parse HEAD')),

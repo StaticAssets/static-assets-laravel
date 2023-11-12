@@ -3,7 +3,6 @@
 namespace StaticAssets;
 
 use Exception;
-use Illuminate\Support\Str;
 use Illuminate\Support\HtmlString;
 
 class StaticAssetMix
@@ -23,20 +22,18 @@ class StaticAssetMix
         $manifestPath = public_path($manifestDirectory.'/mix-manifest.json');
 
         if (! isset(static::$manifests[$manifestPath])) {
-            if (! is_file($manifestPath) && config('static-assets.manifest.save_method') === 'disk') {
-                (new DownloadManifest)('mix');
-
+            if (is_file($manifestPath)) {
                 static::$manifests[$manifestPath] = json_decode(file_get_contents($manifestPath), true);
+            }
+
+            if (! isset(static::$manifests[$manifestPath]) && config('static-assets.manifest.save_method') === 'disk') {
+                (new DownloadManifest)('mix');
 
                 return $this->__invoke($path, $manifestDirectory);
             }
 
             if (config('static-assets.manifest.save_method') === 'cache') {
-                $remotePath = sprintf(
-                    '%s/%s/mix-manifest.json',
-                    config('static-assets.cdn'),
-                    config('static-assets.release')
-                );
+                $remotePath = 'https://manifests.staticassets.app/'.config('static-assets.release');
 
                 static::$manifests[$manifestPath] = cache()->rememberForever($remotePath, function () use ($remotePath) {
                     return json_decode(file_get_contents($remotePath), true);
@@ -66,14 +63,6 @@ class StaticAssetMix
             }
         }
 
-        return Str::of(config('static-assets.cdn'))
-            ->append('/')
-            ->append(config('static-assets.release'))
-            ->append(new HtmlString(app('config')->get('app.mix_url').$manifestDirectory.$manifest[$path]))
-            ->replace(
-                (config('static-assets.manifest.custom_directory') ?: 'public').config('static-assets.release'),
-                config('static-assets.release')
-            )
-            ->toString();
+        return new HtmlString(app('config')->get('app.mix_url').$manifestDirectory.$manifest[$path]);
     }
 }
