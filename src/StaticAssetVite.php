@@ -9,18 +9,16 @@ class StaticAssetVite extends Vite
 {
     protected function assetPath($path, $secure = null): string
     {
-        return Str::of('https://cdn.staticassets.app')
-            ->append('/')
-            ->append($path)
-            ->replace(
-                config('static-assets.manifest.custom_directory') ?: 'build',
-                config('static-assets.release')
-            )
+        return Str::of("$path")
+            ->replace($this->buildDirectory, '')
+            ->trim('/')
             ->toString();
     }
 
     protected function manifest($buildDirectory): array
     {
+        $buildDirectory = 'build';
+
         $path = $this->manifestPath($buildDirectory);
 
         // save to the disk and then continue as normal
@@ -30,15 +28,14 @@ class StaticAssetVite extends Vite
             return parent::manifest($buildDirectory);
         }
 
-        if (! isset(static::$manifests[$path])) {
-            $remotePath = sprintf(
-                'https://staticassets.app/api/manifest/%s',
-                config('static-assets.release')
-            );
+        if (config('static-assets.manifest.save_method') === 'cache') {
+            if (! isset(static::$manifests[$path])) {
+                $remotePath = 'https://manifests.staticassets.app/'.config('static-assets.release');
 
-            static::$manifests[$path] = cache()->rememberForever($remotePath, function () use ($remotePath) {
-                return json_decode(file_get_contents($remotePath), true);
-            });
+                static::$manifests[$path] = cache()->rememberForever($remotePath, function () use ($remotePath) {
+                    return json_decode(file_get_contents($remotePath), true);
+                });
+            }
         }
 
         return parent::manifest($buildDirectory);
