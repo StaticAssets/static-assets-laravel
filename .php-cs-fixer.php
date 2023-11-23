@@ -1,20 +1,5 @@
 <?php
 
-$finder = \PhpCsFixer\Finder::create()
-    ->in(__DIR__)
-    ->exclude([
-        'bootstrap',
-        'storage',
-        'vendor',
-    ])
-    ->name('*.php')
-    ->name('_ide_helper')
-    ->notName('*.blade.php')
-    ->notName('index.php')
-    ->notName('server.php')
-    ->ignoreDotFiles(true)
-    ->ignoreVCS(true);
-
 return (new PhpCsFixer\Config)
     ->setRiskyAllowed(true)
     ->setUsingCache(true)
@@ -125,4 +110,19 @@ return (new PhpCsFixer\Config)
         'magic_method_casing' => true, // added from Symfony
         'fully_qualified_strict_types' => true, // added
     ])
-    ->setFinder($finder);
+    ->setFinder(
+        \PhpCsFixer\Finder::create()
+            ->in(__DIR__)
+            ->exclude([
+                'bootstrap',
+                'storage',
+                'vendor',
+            ])
+            ->name('*.php')
+            ->name('_ide_helper')
+            ->notName('*.blade.php')
+            ->notName('index.php')
+            ->notName('server.php')
+            ->ignoreDotFiles(true)
+            ->ignoreVCS(true)
+    );

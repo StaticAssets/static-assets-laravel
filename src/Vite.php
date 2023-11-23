@@ -3,9 +3,8 @@
 namespace StaticAssets;
 
 use Illuminate\Support\Str;
-use Illuminate\Foundation\Vite;
 
-class StaticAssetVite extends Vite
+class Vite extends \Illuminate\Foundation\Vite
 {
     protected function assetPath($path, $secure = null): string
     {

@@ -5,7 +5,7 @@ namespace StaticAssets;
 use Exception;
 use Illuminate\Support\HtmlString;
 
-class StaticAssetMix
+class Mix
 {
     public static array $manifests = [];
 
