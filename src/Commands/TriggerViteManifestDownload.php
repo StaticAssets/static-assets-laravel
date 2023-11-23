@@ -3,7 +3,7 @@
 namespace StaticAssets\Commands;
 
 use Illuminate\Console\Command;
-use StaticAssets\DownloadViteManifest;
+use StaticAssets\DownloadManifest;
 
 class TriggerViteManifestDownload extends Command
 {
@@ -13,7 +13,7 @@ class TriggerViteManifestDownload extends Command
 
     public function handle(): int
     {
-        (new DownloadViteManifest)();
+        (new DownloadManifest)('vite');
 
         return Command::SUCCESS;
     }

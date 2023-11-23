@@ -2,7 +2,9 @@
 
 namespace StaticAssets;
 
+use Illuminate\Foundation\Mix;
 use Illuminate\Foundation\Vite;
+use StaticAssets\Commands\TriggerMixManifestDownload;
 use StaticAssets\Commands\TriggerViteManifestDownload;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as BaseServiceProvider;
 
@@ -16,11 +18,16 @@ class ServiceProvider extends BaseServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->commands([
+                TriggerMixManifestDownload::class,
                 TriggerViteManifestDownload::class,
             ]);
         }
 
         if (config('static-assets.is_enabled')) {
+            $this->app->extend(Mix::class, function () {
+                return new StaticAssetMix;
+            });
+
             $this->app->extend(Vite::class, function () {
                 return new StaticAssetVite;
             });
