@@ -1,5 +1,5 @@
 {
-    "name": "static-assets/static-assets-laravel",
+    "name": "static-assets/laravel",
     "description": "Static Assets laravel helper package",
     "type": "library",
     "license": "MIT",
