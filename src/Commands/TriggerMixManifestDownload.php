@@ -13,7 +13,9 @@ class TriggerMixManifestDownload extends Command
 
     public function handle(): int
     {
-        (new DownloadManifest)('mix');
+        DownloadManifest::make()
+            ->forMix()
+            ->save();
 
         return Command::SUCCESS;
     }

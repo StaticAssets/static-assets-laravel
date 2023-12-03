@@ -22,17 +22,19 @@ class Vite extends \Illuminate\Foundation\Vite
 
         // save to the disk and then continue as normal
         if (! is_file($path) && config('static-assets.manifest.save_method') === 'disk') {
-            (new DownloadManifest)('vite');
+            DownloadManifest::make()
+                ->forVite()
+                ->save();
 
             return parent::manifest($buildDirectory);
         }
 
         if (config('static-assets.manifest.save_method') === 'cache') {
             if (! isset(static::$manifests[$path])) {
-                $remotePath = 'https://manifests.staticassets.app/'.config('static-assets.release');
-
-                static::$manifests[$path] = cache()->rememberForever($remotePath, function () use ($remotePath) {
-                    return json_decode(file_get_contents($remotePath), true);
+                static::$manifests[$path] = cache()->remember(config('static-assets.release'), now()->addDays(config('static-assets.manifest.cache_days')), function () {
+                    return DownloadManifest::make()
+                        ->forVite()
+                        ->toArray();
                 });
             }
         }

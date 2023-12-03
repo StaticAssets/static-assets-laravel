@@ -27,16 +27,18 @@ class Mix
             }
 
             if (! isset(static::$manifests[$manifestPath]) && config('static-assets.manifest.save_method') === 'disk') {
-                (new DownloadManifest)('mix');
+                DownloadManifest::make()
+                    ->forMix()
+                    ->save();
 
                 return $this->__invoke($path, $manifestDirectory);
             }
 
             if (config('static-assets.manifest.save_method') === 'cache') {
-                $remotePath = 'https://manifests.staticassets.app/'.config('static-assets.release');
-
-                static::$manifests[$manifestPath] = cache()->rememberForever($remotePath, function () use ($remotePath) {
-                    return json_decode(file_get_contents($remotePath), true);
+                static::$manifests[$manifestPath] = cache()->remember(config('static-assets.release'), now()->addDays(config('static-assets.manifest.cache_days')), function () {
+                    return DownloadManifest::make()
+                        ->forMix()
+                        ->toArray();
                 });
 
                 return $this->__invoke($path, $manifestDirectory);

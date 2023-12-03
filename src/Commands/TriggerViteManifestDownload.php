@@ -13,7 +13,9 @@ class TriggerViteManifestDownload extends Command
 
     public function handle(): int
     {
-        (new DownloadManifest)('vite');
+        DownloadManifest::make()
+            ->forVite()
+            ->save();
 
         return Command::SUCCESS;
     }
