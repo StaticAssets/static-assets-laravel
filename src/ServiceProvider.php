@@ -25,11 +25,11 @@ class ServiceProvider extends BaseServiceProvider
 
         if (config('static-assets.is_enabled')) {
             $this->app->extend(Mix::class, function () {
-                return new StaticAssetMix;
+                return new \StaticAssets\Mix;
             });
 
             $this->app->extend(Vite::class, function () {
-                return new StaticAssetVite;
+                return new \StaticAssets\Vite;
             });
         }
     }

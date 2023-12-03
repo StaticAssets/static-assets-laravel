@@ -13,5 +13,8 @@ return [
 
         // options: disk or cache
         'save_method' => 'disk',
+
+        // amount of days to save manifest in the cache
+        'cache_days' => 30,
     ],
 ];
