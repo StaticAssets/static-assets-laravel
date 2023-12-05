@@ -3,16 +3,17 @@
 namespace StaticAssets;
 
 use Exception;
+use Illuminate\Support\Str;
 use Illuminate\Support\HtmlString;
 
-class Mix
+class Mix extends \Illuminate\Foundation\Mix
 {
     public static array $manifests = [];
 
     public function __invoke($path, $manifestDirectory = '')
     {
-        if (! str_starts_with($path, '/')) {
-            $path = "/{$path}";
+        if (Str::contains($manifestDirectory, 'vendor')) {
+            return parent::__invoke($path, $manifestDirectory);
         }
 
         if ($manifestDirectory && ! str_starts_with($manifestDirectory, '/')) {

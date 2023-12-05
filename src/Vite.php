@@ -8,6 +8,10 @@ class Vite extends \Illuminate\Foundation\Vite
 {
     protected function assetPath($path, $secure = null): string
     {
+        if (Str::contains($path, 'vendor')) {
+            return parent::assetPath($path, $secure);
+        }
+
         return Str::of("$path")
             ->replace($this->buildDirectory, '')
             ->trim('/')
@@ -16,6 +20,10 @@ class Vite extends \Illuminate\Foundation\Vite
 
     protected function manifest($buildDirectory): array
     {
+        if (Str::contains($buildDirectory, 'vendor')) {
+            return parent::manifest($buildDirectory);
+        }
+
         $buildDirectory = 'build';
 
         $path = $this->manifestPath($buildDirectory);
