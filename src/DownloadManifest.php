@@ -2,10 +2,13 @@
 
 namespace StaticAssets;
 
+use RuntimeException;
 use Illuminate\Support\Facades\Http;
 
 class DownloadManifest
 {
+    protected bool $cli = false;
+
     protected bool $mix = false;
 
     protected bool $vite = false;
@@ -13,6 +16,13 @@ class DownloadManifest
     public static function make(): self
     {
         return new static();
+    }
+
+    public function viaCli(): self
+    {
+        $this->cli = true;
+
+        return $this;
     }
 
     public function forMix(): self
@@ -43,6 +53,10 @@ class DownloadManifest
 
         if ($response->successful()) {
             return $response->json();
+        }
+
+        if ($this->cli) {
+            throw new RuntimeException('Static Assets: Failed to download manifest');
         }
 
         return [];

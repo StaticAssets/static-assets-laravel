@@ -2,6 +2,7 @@
 
 namespace StaticAssets\Commands;
 
+use RuntimeException;
 use Illuminate\Console\Command;
 use StaticAssets\DownloadManifest;
 
@@ -13,9 +14,16 @@ class TriggerViteManifestDownload extends Command
 
     public function handle(): int
     {
-        DownloadManifest::make()
-            ->forVite()
-            ->save();
+        try {
+            DownloadManifest::make()
+                ->forVite()
+                ->viaCli()
+                ->save();
+        } catch (RuntimeException $e) {
+            $this->output->error($e->getMessage());
+        }
+
+        $this->output->success('Static Assets: Vite manifest downloaded');
 
         return Command::SUCCESS;
     }

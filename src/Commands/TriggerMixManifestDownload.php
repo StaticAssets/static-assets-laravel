@@ -2,6 +2,7 @@
 
 namespace StaticAssets\Commands;
 
+use RuntimeException;
 use Illuminate\Console\Command;
 use StaticAssets\DownloadManifest;
 
@@ -13,9 +14,16 @@ class TriggerMixManifestDownload extends Command
 
     public function handle(): int
     {
-        DownloadManifest::make()
-            ->forMix()
-            ->save();
+        try {
+            DownloadManifest::make()
+                ->forMix()
+                ->viaCli()
+                ->save();
+        } catch (RuntimeException $e) {
+            $this->output->error($e->getMessage());
+        }
+
+        $this->output->success('Static Assets: Mix manifest downloaded');
 
         return Command::SUCCESS;
     }
