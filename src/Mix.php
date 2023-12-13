@@ -52,7 +52,7 @@ class Mix extends \Illuminate\Foundation\Mix
 
         $manifest = static::$manifests[$manifestPath];
 
-        $path = "/public{$path}";
+        $path = Str::of($path)->ltrim('/')->prepend('/public/')->toString();
 
         if (! isset($manifest[$path])) {
             $exception = new Exception("Unable to locate Mix file: {$path}.");
