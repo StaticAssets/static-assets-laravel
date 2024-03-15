@@ -2,6 +2,8 @@
 
 This package enables your Laravel app to use your compiled assets (e.g. js & css files) generated and hosted with Static Assets.
 
+To learn about what Static Assets can do for you, visit [staticassets.app](https://staticassets.app).
+
 ## Requirements
 
 * PHP >= 8.1
@@ -17,6 +19,16 @@ This package enables your Laravel app to use your compiled assets (e.g. js & css
 ```bash
 composer require static-assets/laravel
 ```
+
+You'll also need to install the Vite or Mix package for your Laravel app.
+
+```bash
+npm install @static-assets/vite
+# or
+npm install @static-assets/mix
+```
+
+For more information on these packages, checkout their docs ([Vite](https://github.com/StaticAssets/static-assets-vite) / [Mix](https://github.com/StaticAssets/static-assets-laravel-mix)).
 
 ## Configuration
 
