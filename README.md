@@ -117,7 +117,7 @@ We take security seriously at Static Assets. Any security issues should be repor
 
 ## Credits
 
-Static Assets is a product of [Init Development Studios](https://initdevelopmnetstudios.com). We're proud members of the Laravel community and sponsor our local Laravel conference [Laracon AU](https://laracon.au/).
+Static Assets is a product of [Init Development Studios](https://initdevelopmentstudios.com/). We're proud members of the Laravel community and sponsor our local Laravel conference [Laracon AU](https://laracon.au/).
 
 - [Benjamin Ayles](https://github.com/parkourben99)
 - [Aaron Heath](https://aaronheath.com/)
