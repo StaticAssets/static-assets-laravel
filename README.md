@@ -34,7 +34,7 @@ For more information on these packages, checkout their docs ([Vite](https://gith
 
 The package can be configured using the following `.env` variables. 
 
-By default, none of the following variables are required. For default behaviour refer below.
+By default, none of the following variables are required. Default behaviours are defined below.
 
 ### Enable / Disable the Package
 
@@ -48,17 +48,13 @@ Default: `true` when `APP_ENV` is `production`, `false` otherwise.
 
 We store the manifest compiled by Static Assets either on your default disk or in the cache.
 
+Valid values are: `disk` or `cache`.
+
 ```bash
 STATIC_ASSETS_STORAGE=disk
 ```
 
 By default, the Static Assets compiled manifest will be stored on the default disk.
-
-```
-STATIC_ASSETS_DIRECTORY=build
-```
-
-By default, the package will look for the manifest file in the `/public` directory.
 
 ### Manifest Cache Timeout (Cache only)
 
@@ -69,12 +65,6 @@ STATIC_ASSETS_CACHE_TIMEOUT=90
 ```
 
 By default, the Static Assets compiled manifest will be cached for 30 days.
-
-```
-STATIC_ASSETS_DIRECTORY=build
-```
-
-By default, the package will look for the manifest file in the `/public` directory.
 
 ### Specify Release
 
@@ -97,6 +87,9 @@ trim(exec('git --git-dir '.base_path('.git').' rev-parse HEAD'))
 Should your Vite/Mix manifest not be stored in their default locations (/public or /public/build), you can specify the directory here.
 
 ```
+# This non-default example will look for the manifest file in the 
+# /build directory of your project.
+
 STATIC_ASSETS_DIRECTORY=build
 ```
 
