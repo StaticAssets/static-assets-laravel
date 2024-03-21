@@ -1,8 +1,10 @@
 # Static Assets for Laravel
 
-This package enables your Laravel app to use your compiled assets (e.g. js & css files) generated and hosted with Static Assets.
+This [Static Assets](https://staticassets.app) package enables your Laravel app's static asset management by enabling remote compilation and hosting, streamlining development workflows and resource utilization.
 
-To learn about what Static Assets can do for you, visit [staticassets.app](https://staticassets.app).
+You'll no longer need to install Node.js onto your hosts just for asset compilation. Plug get all the benefits of remote management including faster compilation times, reduced resource utilization, CDN hosting and more.
+
+To learn about what Static Assets can do for you and to set up your account, visit [staticassets.app](https://staticassets.app).
 
 ## Requirements
 
@@ -22,13 +24,9 @@ composer require static-assets/laravel
 
 You'll also need to install the Vite or Mix package for your Laravel app.
 
-```bash
-npm install @static-assets/vite
-# or
-npm install @static-assets/mix
-```
+[Instructions to install Vite package](https://github.com/StaticAssets/static-assets-vite)
 
-For more information on these packages, checkout their docs ([Vite](https://github.com/StaticAssets/static-assets-vite) / [Mix](https://github.com/StaticAssets/static-assets-laravel-mix)).
+[Instructions to install Laravel Mix package](https://github.com/StaticAssets/static-assets-laravel-mix)
 
 ## Configuration
 
