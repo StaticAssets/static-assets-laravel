@@ -23,8 +23,17 @@ class Mix extends \Illuminate\Foundation\Mix
         $manifestPath = public_path($manifestDirectory.'/mix-manifest.json');
 
         if (! isset(static::$manifests[$manifestPath])) {
+            // file exists load into memory
             if (is_file($manifestPath)) {
-                static::$manifests[$manifestPath] = json_decode(file_get_contents($manifestPath), true);
+                $manifest = json_decode(file_get_contents($manifestPath), true);
+
+                // if this is not a static-assets manifest then
+                // rename it and get the manifest again
+                if (str(json_encode(static::$manifests[$manifestPath]))->contains('cdn.staticassets.app')) {
+                    static::$manifests[$manifestPath] = $manifest;
+                } else {
+                    rename($manifestPath, "{$manifestPath}.old");
+                }
             }
 
             if (! isset(static::$manifests[$manifestPath]) && config('static-assets.manifest.save_method') === 'disk') {
