@@ -1,6 +1,6 @@
 # Static Assets for Laravel
 
-This [Static Assets](https://staticassets.app) package enables your Laravel app's static asset to be remotely compiled and hosted. 
+This [Static Assets](https://staticassets.app) package enables your Laravel app's static assets to be remotely compiled and hosted. 
 
 You'll no longer need to install Node.js onto your hosts just for asset compilation. Plus get all the benefits of remote management including faster compilation times, reduced resource utilization, CDN hosting and more.
 
