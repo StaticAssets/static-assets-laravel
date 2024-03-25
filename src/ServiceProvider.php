@@ -16,6 +16,10 @@ class ServiceProvider extends BaseServiceProvider
             __DIR__.'/../config/static-assets.php' => config_path('static-assets.php'),
         ], 'static-assets-config');
 
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/static-assets.php', 'static-assets'
+        );
+        
         if ($this->app->runningInConsole()) {
             $this->commands([
                 TriggerMixManifestDownload::class,
