@@ -1,8 +1,8 @@
 # Static Assets for Laravel
 
-This [Static Assets](https://staticassets.app) package enables your Laravel app's static asset management by enabling remote compilation and hosting, streamlining development workflows and resource utilization.
+This [Static Assets](https://staticassets.app) package enables your Laravel app's static asset to be remotely compiled and hosted. 
 
-You'll no longer need to install Node.js onto your hosts just for asset compilation. Plug get all the benefits of remote management including faster compilation times, reduced resource utilization, CDN hosting and more.
+You'll no longer need to install Node.js onto your hosts just for asset compilation. Plus get all the benefits of remote management including faster compilation times, reduced resource utilization, CDN hosting and more.
 
 To learn about what Static Assets can do for you and to set up your account, visit [staticassets.app](https://staticassets.app).
 
@@ -103,7 +103,7 @@ php artisan vendor:publish --tag=static-assets-config
 
 ## Changelog
 
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+Please see the packages [GitHub Releases page](https://github.com/StaticAssets/static-assets-laravel/releases) for more information on what has changed recently.
 
 ## Contributing
 
